@@ -1,25 +1,145 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import { SITE_TITLE } from '../consts';
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
-<Layout
-	title="About SmartHomeMade"
-	description="We help you build a smarter home without the confusion."
-	pubDate={new Date('March 12 2026')}
->
-	<h2>What is SmartHomeMade?</h2>
-	<p>SmartHomeMade is your no-BS guide to building a smart home. We write honest reviews, practical guides, and comparison articles to help you make smart decisions about smart home tech.</p>
-	
-	<h2>What We Cover</h2>
-	<ul>
-		<li><strong>Product Reviews</strong> — We test smart home devices and tell you what's actually worth buying.</li>
-		<li><strong>Buying Guides</strong> — Side-by-side comparisons so you don't have to research for hours.</li>
-		<li><strong>How-To Guides</strong> — Step-by-step instructions for setting up and automating your home.</li>
-		<li><strong>Smart Home Strategy</strong> — How to build a smart home without wasting money or creating a mess of incompatible devices.</li>
-	</ul>
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<BaseHead title={`About — ${SITE_TITLE}`} description="We help you build a smarter home without the confusion. Honest reviews, practical guides, real recommendations." />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+		<style>body { font-family: 'Inter', system-ui, sans-serif; }</style>
 
-	<h2>Our Approach</h2>
-	<p>We don't do sponsored reviews. We don't accept free products in exchange for coverage. Our recommendations are based on genuine testing and research. If something is good, we'll tell you. If it's not worth your money, we'll tell you that too.</p>
-	
-	<p>Questions or suggestions? We'd love to hear from you.</p>
-</Layout>
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={`About — ${SITE_TITLE}`} />
+		<meta property="og:description" content="We help you build a smarter home without the confusion." />
+		<meta property="og:url" content={canonicalURL} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<link rel="canonical" href={canonicalURL} />
+
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "AboutPage",
+			"name": `About ${SITE_TITLE}`,
+			"description": "We help you build a smarter home without the confusion.",
+			"url": canonicalURL.href
+		})} />
+	</head>
+	<body class="bg-white text-gray-900 antialiased">
+
+		<!-- Top accent -->
+		<div class="h-1 bg-gradient-to-r from-blue-600 via-violet-500 to-cyan-500"></div>
+
+		<!-- Nav -->
+		<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100/80 shadow-sm">
+			<div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+				<a href="/" class="text-xl font-black tracking-tight">Smart<span class="text-blue-600">Home</span>Made</a>
+				<div class="flex items-center gap-6 text-sm font-medium text-gray-500">
+					<a href="/" class="hover:text-blue-600 transition-colors duration-200">Home</a>
+					<a href="/blog" class="hover:text-blue-600 transition-colors duration-200">Articles</a>
+					<a href="/about" class="text-blue-600 font-semibold">About</a>
+				</div>
+			</div>
+		</nav>
+
+		<main>
+			<!-- Header -->
+			<section class="relative overflow-hidden">
+				<div class="absolute inset-0 bg-gradient-to-br from-gray-50 to-blue-50/30"></div>
+				<div class="absolute top-0 right-0 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl -mr-48 -mt-48"></div>
+
+				<div class="relative max-w-3xl mx-auto px-6 py-16 md:py-24 text-center">
+					<span class="text-blue-600 font-bold text-sm uppercase tracking-wider mb-4 block">About Us</span>
+					<h1 class="text-3xl md:text-5xl font-black tracking-tight mb-6">We help you build a smarter home.</h1>
+					<p class="text-gray-500 text-lg leading-relaxed max-w-xl mx-auto">Without the confusion, without the hype, and without wasting your money on stuff that doesn't work.</p>
+					<div class="mt-8 h-1 w-24 bg-gradient-to-r from-blue-600 via-violet-500 to-cyan-500 rounded-full mx-auto"></div>
+				</div>
+			</section>
+
+			<!-- Content -->
+			<section class="max-w-3xl mx-auto px-6 pb-20">
+				<div class="prose max-w-none">
+					<h2>What is SmartHomeMade?</h2>
+					<p>SmartHomeMade is your no-BS guide to building a smart home. We write honest reviews, practical guides, and comparison articles to help you make smart decisions about smart home tech.</p>
+
+					<h2>What We Cover</h2>
+					<div class="grid sm:grid-cols-2 gap-4 not-prose my-8">
+						{[
+							{ icon: '🔍', title: 'Product Reviews', desc: 'We test smart home devices and tell you what\'s actually worth buying.' },
+							{ icon: '⚖️', title: 'Buying Guides', desc: 'Side-by-side comparisons so you don\'t have to research for hours.' },
+							{ icon: '🛠️', title: 'How-To Guides', desc: 'Step-by-step instructions for setting up and automating your home.' },
+							{ icon: '🧠', title: 'Smart Home Strategy', desc: 'Build a smart home without creating a mess of incompatible devices.' },
+						].map(item => (
+							<div class="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:border-blue-200 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+								<span class="text-2xl mb-3 block">{item.icon}</span>
+								<h3 class="font-bold text-gray-900 mb-1">{item.title}</h3>
+								<p class="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+							</div>
+						))}
+					</div>
+
+					<h2>Our Approach</h2>
+					<p>We don't do sponsored reviews. We don't accept free products in exchange for coverage. Our recommendations are based on genuine testing and research.</p>
+					<p>If something is good, we'll tell you. If it's not worth your money, we'll tell you that too.</p>
+
+					<div class="not-prose my-10 bg-blue-50 rounded-2xl p-8 border border-blue-100">
+						<div class="flex items-start gap-4">
+							<div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 mt-1">
+								<svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+							</div>
+							<div>
+								<h3 class="font-bold text-gray-900 mb-1">Independence Matters</h3>
+								<p class="text-sm text-gray-600 leading-relaxed">Every product we recommend has been independently evaluated. No affiliate pressure changes our editorial opinion. We buy our own test units whenever possible.</p>
+							</div>
+						</div>
+					</div>
+
+					<p>Questions or suggestions? We'd love to hear from you.</p>
+				</div>
+			</section>
+		</main>
+
+		<!-- Footer -->
+		<footer class="bg-gray-950 text-gray-400">
+			<div class="max-w-7xl mx-auto px-6 lg:px-10 py-16">
+				<div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+					<div class="col-span-2 md:col-span-1">
+						<a href="/" class="text-xl font-black text-white">Smart<span class="text-blue-400">Home</span>Made</a>
+						<p class="text-sm text-gray-500 mt-3 leading-relaxed">Honest smart home reviews and guides.</p>
+					</div>
+					<div>
+						<h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Content</h3>
+						<ul class="space-y-2.5 text-sm">
+							<li><a href="/blog" class="hover:text-white transition-colors duration-200">All Articles</a></li>
+							<li><a href="/blog" class="hover:text-white transition-colors duration-200">Reviews</a></li>
+							<li><a href="/blog" class="hover:text-white transition-colors duration-200">Buying Guides</a></li>
+						</ul>
+					</div>
+					<div>
+						<h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Categories</h3>
+						<ul class="space-y-2.5 text-sm">
+							<li><a href="/blog" class="hover:text-white transition-colors duration-200">Smart Plugs</a></li>
+							<li><a href="/blog" class="hover:text-white transition-colors duration-200">Voice Assistants</a></li>
+							<li><a href="/blog" class="hover:text-white transition-colors duration-200">Lighting</a></li>
+						</ul>
+					</div>
+					<div>
+						<h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4">About</h3>
+						<ul class="space-y-2.5 text-sm">
+							<li><a href="/about" class="hover:text-white transition-colors duration-200">About Us</a></li>
+							<li><a href={new URL('rss.xml', Astro.site).href} class="hover:text-white transition-colors duration-200">RSS Feed</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+					<p class="text-xs text-gray-600">&copy; 2026 SmartHomeMade. All rights reserved.</p>
+					<p class="text-xs text-gray-600">Made with care for smart home enthusiasts.</p>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>
