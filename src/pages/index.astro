@@ -3,6 +3,11 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
+);
 ---
 
 <!doctype html>
@@ -13,37 +18,211 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<section class="hero">
+				<h1>Your Guide to a <span class="accent">Smarter Home</span></h1>
+				<p>Honest reviews, practical guides, and no-BS tips for building a smart home that actually works. No sponsored fluff — just what we'd recommend to a friend.</p>
+			</section>
+
+			<section class="latest-posts">
+				<h2>Latest Articles</h2>
+				<div class="post-grid">
+					{posts.map((post) => (
+						<article class="post-card">
+							<a href={`/blog/${post.id}/`}>
+								<h3>{post.data.title}</h3>
+								<p class="post-date">
+									{new Date(post.data.pubDate).toLocaleDateString('en-us', {
+										year: 'numeric',
+										month: 'long',
+										day: 'numeric',
+									})}
+								</p>
+								<p class="post-excerpt">{post.data.description}</p>
+								<span class="read-more">Read article →</span>
+							</a>
+						</article>
+					))}
+				</div>
+			</section>
+
+			<section class="categories">
+				<h2>Topics We Cover</h2>
+				<div class="cat-grid">
+					<div class="cat-card">
+						<span class="cat-icon">🔌</span>
+						<h3>Smart Plugs & Switches</h3>
+						<p>Turn any device smart in seconds</p>
+					</div>
+					<div class="cat-card">
+						<span class="cat-icon">💡</span>
+						<h3>Smart Lighting</h3>
+						<p>Bulbs, strips, and switches reviewed</p>
+					</div>
+					<div class="cat-card">
+						<span class="cat-icon">🗣️</span>
+						<h3>Voice Assistants</h3>
+						<p>Alexa, Google, Siri — compared</p>
+					</div>
+					<div class="cat-card">
+						<span class="cat-icon">🔒</span>
+						<h3>Security & Cameras</h3>
+						<p>Protect your home the smart way</p>
+					</div>
+					<div class="cat-card">
+						<span class="cat-icon">🌡️</span>
+						<h3>Climate & Comfort</h3>
+						<p>Thermostats, fans, and sensors</p>
+					</div>
+					<div class="cat-card">
+						<span class="cat-icon">🏠</span>
+						<h3>Getting Started</h3>
+						<p>New to smart homes? Start here</p>
+					</div>
+				</div>
+			</section>
 		</main>
 		<Footer />
+
+		<style>
+			main {
+				max-width: 960px;
+				margin: 0 auto;
+				padding: 0 1.5em;
+			}
+
+			.hero {
+				text-align: center;
+				padding: 4em 1em 3em;
+			}
+
+			.hero h1 {
+				font-size: 2.8em;
+				line-height: 1.2;
+				margin-bottom: 0.5em;
+				color: rgb(var(--gray-dark));
+			}
+
+			.hero .accent {
+				background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+			}
+
+			.hero p {
+				font-size: 1.2em;
+				color: rgb(var(--gray));
+				max-width: 600px;
+				margin: 0 auto;
+				line-height: 1.6;
+			}
+
+			.latest-posts {
+				padding: 2em 0;
+			}
+
+			.latest-posts h2, .categories h2 {
+				font-size: 1.6em;
+				margin-bottom: 1em;
+				color: rgb(var(--gray-dark));
+			}
+
+			.post-grid {
+				display: grid;
+				grid-template-columns: 1fr;
+				gap: 1.5em;
+			}
+
+			.post-card {
+				border: 1px solid rgba(var(--gray-light), 50%);
+				border-radius: 12px;
+				overflow: hidden;
+				transition: transform 0.2s, box-shadow 0.2s;
+			}
+
+			.post-card:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+			}
+
+			.post-card a {
+				display: block;
+				padding: 1.5em 2em;
+				text-decoration: none;
+				color: inherit;
+			}
+
+			.post-card h3 {
+				font-size: 1.3em;
+				margin: 0 0 0.3em;
+				color: rgb(var(--gray-dark));
+			}
+
+			.post-date {
+				font-size: 0.85em;
+				color: rgb(var(--gray));
+				margin: 0 0 0.8em;
+			}
+
+			.post-excerpt {
+				color: rgb(var(--gray));
+				line-height: 1.6;
+				margin: 0 0 1em;
+			}
+
+			.read-more {
+				color: #3b82f6;
+				font-weight: 600;
+				font-size: 0.9em;
+			}
+
+			.categories {
+				padding: 2em 0 4em;
+			}
+
+			.cat-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 1em;
+			}
+
+			.cat-card {
+				text-align: center;
+				padding: 1.5em 1em;
+				border: 1px solid rgba(var(--gray-light), 50%);
+				border-radius: 12px;
+				transition: transform 0.2s;
+			}
+
+			.cat-card:hover {
+				transform: translateY(-2px);
+			}
+
+			.cat-icon {
+				font-size: 2em;
+				display: block;
+				margin-bottom: 0.5em;
+			}
+
+			.cat-card h3 {
+				font-size: 1em;
+				margin: 0 0 0.3em;
+			}
+
+			.cat-card p {
+				font-size: 0.85em;
+				color: rgb(var(--gray));
+				margin: 0;
+			}
+
+			@media (max-width: 720px) {
+				.hero h1 { font-size: 2em; }
+				.cat-grid { grid-template-columns: repeat(2, 1fr); }
+			}
+
+			@media (max-width: 480px) {
+				.cat-grid { grid-template-columns: 1fr; }
+			}
+		</style>
 	</body>
 </html>
