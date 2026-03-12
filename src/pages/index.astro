@@ -1,228 +1,109 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
 );
+const featured = posts[0];
+const recent = posts.slice(1);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
-	<body>
-		<Header />
+	<body class="bg-gray-50 text-gray-800 antialiased">
+		<!-- Nav -->
+		<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+			<div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+				<a href="/" class="text-xl font-black tracking-tight text-gray-900">Smart<span class="text-blue-600">Home</span>Made</a>
+				<div class="flex gap-6 text-sm font-medium text-gray-500">
+					<a href="/" class="hover:text-gray-900 transition">Home</a>
+					<a href="/blog" class="hover:text-gray-900 transition">Articles</a>
+					<a href="/about" class="hover:text-gray-900 transition">About</a>
+				</div>
+			</div>
+		</nav>
+
 		<main>
-			<section class="hero">
-				<h1>Your Guide to a <span class="accent">Smarter Home</span></h1>
-				<p>Honest reviews, practical guides, and no-BS tips for building a smart home that actually works. No sponsored fluff — just what we'd recommend to a friend.</p>
+			<!-- Hero -->
+			<section class="relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white">
+				<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djJoLTJ2LTJoMnptMC00aDJ2Mmgt MnYtMnptLTQgMHYyaC0ydi0yaDJ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30"></div>
+				<div class="relative max-w-6xl mx-auto px-6 py-20 md:py-28">
+					<div class="max-w-2xl">
+						<span class="inline-block px-3 py-1 bg-white/10 rounded-full text-sm font-medium mb-6 backdrop-blur-sm">Your trusted smart home guide</span>
+						<h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6">Build a Smarter Home,<br><span class="text-blue-200">The Right Way</span></h1>
+						<p class="text-lg text-blue-100 leading-relaxed mb-8 max-w-lg">Honest reviews, practical guides, and no-BS advice. We test the gadgets so you don't waste money on the wrong ones.</p>
+						<a href="/blog" class="inline-flex items-center gap-2 bg-white text-blue-700 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition shadow-lg">
+							Read Our Guides
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+						</a>
+					</div>
+				</div>
 			</section>
 
-			<section class="latest-posts">
-				<h2>Latest Articles</h2>
-				<div class="post-grid">
-					{posts.map((post) => (
-						<article class="post-card">
-							<a href={`/blog/${post.id}/`}>
-								<h3>{post.data.title}</h3>
-								<p class="post-date">
-									{new Date(post.data.pubDate).toLocaleDateString('en-us', {
-										year: 'numeric',
-										month: 'long',
-										day: 'numeric',
-									})}
-								</p>
-								<p class="post-excerpt">{post.data.description}</p>
-								<span class="read-more">Read article →</span>
-							</a>
-						</article>
+			<!-- Featured Post -->
+			{featured && (
+				<section class="max-w-6xl mx-auto px-6 -mt-10 relative z-10">
+					<a href={`/blog/${featured.id}/`} class="block bg-white rounded-2xl shadow-xl hover:shadow-2xl transition p-8 md:p-10 border border-gray-100">
+						<span class="inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-semibold uppercase tracking-wide mb-4">Featured</span>
+						<h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">{featured.data.title}</h2>
+						<p class="text-gray-500 leading-relaxed mb-4 max-w-2xl">{featured.data.description}</p>
+						<span class="text-blue-600 font-semibold text-sm">Read the full article →</span>
+					</a>
+				</section>
+			)}
+
+			<!-- Recent Posts -->
+			<section class="max-w-6xl mx-auto px-6 py-16">
+				<h2 class="text-2xl font-bold text-gray-900 mb-8">Latest Articles</h2>
+				<div class="grid md:grid-cols-2 gap-6">
+					{recent.map((post) => (
+						<a href={`/blog/${post.id}/`} class="group block bg-white rounded-xl p-6 border border-gray-100 hover:border-blue-200 hover:shadow-lg transition">
+							<p class="text-xs text-gray-400 font-medium uppercase tracking-wide mb-2">
+								{new Date(post.data.pubDate).toLocaleDateString('en-us', { year: 'numeric', month: 'long', day: 'numeric' })}
+							</p>
+							<h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition mb-2">{post.data.title}</h3>
+							<p class="text-gray-500 text-sm leading-relaxed">{post.data.description}</p>
+						</a>
 					))}
 				</div>
 			</section>
 
-			<section class="categories">
-				<h2>Topics We Cover</h2>
-				<div class="cat-grid">
-					<div class="cat-card">
-						<span class="cat-icon">🔌</span>
-						<h3>Smart Plugs & Switches</h3>
-						<p>Turn any device smart in seconds</p>
-					</div>
-					<div class="cat-card">
-						<span class="cat-icon">💡</span>
-						<h3>Smart Lighting</h3>
-						<p>Bulbs, strips, and switches reviewed</p>
-					</div>
-					<div class="cat-card">
-						<span class="cat-icon">🗣️</span>
-						<h3>Voice Assistants</h3>
-						<p>Alexa, Google, Siri — compared</p>
-					</div>
-					<div class="cat-card">
-						<span class="cat-icon">🔒</span>
-						<h3>Security & Cameras</h3>
-						<p>Protect your home the smart way</p>
-					</div>
-					<div class="cat-card">
-						<span class="cat-icon">🌡️</span>
-						<h3>Climate & Comfort</h3>
-						<p>Thermostats, fans, and sensors</p>
-					</div>
-					<div class="cat-card">
-						<span class="cat-icon">🏠</span>
-						<h3>Getting Started</h3>
-						<p>New to smart homes? Start here</p>
+			<!-- Topics -->
+			<section class="bg-white border-t border-gray-100">
+				<div class="max-w-6xl mx-auto px-6 py-16">
+					<h2 class="text-2xl font-bold text-gray-900 mb-8">What We Cover</h2>
+					<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+						{[
+							{ icon: '🔌', title: 'Smart Plugs', desc: 'Make any device smart' },
+							{ icon: '💡', title: 'Smart Lighting', desc: 'Bulbs, strips & switches' },
+							{ icon: '🗣️', title: 'Voice Assistants', desc: 'Alexa vs Google vs Siri' },
+							{ icon: '🔒', title: 'Security', desc: 'Cameras, locks & sensors' },
+							{ icon: '🌡️', title: 'Climate', desc: 'Thermostats & comfort' },
+							{ icon: '🏠', title: 'Getting Started', desc: 'New? Start here' },
+						].map(cat => (
+							<div class="bg-gray-50 rounded-xl p-5 text-center hover:bg-blue-50 transition cursor-default">
+								<span class="text-3xl mb-2 block">{cat.icon}</span>
+								<h3 class="font-semibold text-gray-900 text-sm">{cat.title}</h3>
+								<p class="text-gray-400 text-xs mt-1">{cat.desc}</p>
+							</div>
+						))}
 					</div>
 				</div>
 			</section>
 		</main>
-		<Footer />
 
-		<style>
-			main {
-				max-width: 960px;
-				margin: 0 auto;
-				padding: 0 1.5em;
-			}
-
-			.hero {
-				text-align: center;
-				padding: 4em 1em 3em;
-			}
-
-			.hero h1 {
-				font-size: 2.8em;
-				line-height: 1.2;
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray-dark));
-			}
-
-			.hero .accent {
-				background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;
-				background-clip: text;
-			}
-
-			.hero p {
-				font-size: 1.2em;
-				color: rgb(var(--gray));
-				max-width: 600px;
-				margin: 0 auto;
-				line-height: 1.6;
-			}
-
-			.latest-posts {
-				padding: 2em 0;
-			}
-
-			.latest-posts h2, .categories h2 {
-				font-size: 1.6em;
-				margin-bottom: 1em;
-				color: rgb(var(--gray-dark));
-			}
-
-			.post-grid {
-				display: grid;
-				grid-template-columns: 1fr;
-				gap: 1.5em;
-			}
-
-			.post-card {
-				border: 1px solid rgba(var(--gray-light), 50%);
-				border-radius: 12px;
-				overflow: hidden;
-				transition: transform 0.2s, box-shadow 0.2s;
-			}
-
-			.post-card:hover {
-				transform: translateY(-2px);
-				box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-			}
-
-			.post-card a {
-				display: block;
-				padding: 1.5em 2em;
-				text-decoration: none;
-				color: inherit;
-			}
-
-			.post-card h3 {
-				font-size: 1.3em;
-				margin: 0 0 0.3em;
-				color: rgb(var(--gray-dark));
-			}
-
-			.post-date {
-				font-size: 0.85em;
-				color: rgb(var(--gray));
-				margin: 0 0 0.8em;
-			}
-
-			.post-excerpt {
-				color: rgb(var(--gray));
-				line-height: 1.6;
-				margin: 0 0 1em;
-			}
-
-			.read-more {
-				color: #3b82f6;
-				font-weight: 600;
-				font-size: 0.9em;
-			}
-
-			.categories {
-				padding: 2em 0 4em;
-			}
-
-			.cat-grid {
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: 1em;
-			}
-
-			.cat-card {
-				text-align: center;
-				padding: 1.5em 1em;
-				border: 1px solid rgba(var(--gray-light), 50%);
-				border-radius: 12px;
-				transition: transform 0.2s;
-			}
-
-			.cat-card:hover {
-				transform: translateY(-2px);
-			}
-
-			.cat-icon {
-				font-size: 2em;
-				display: block;
-				margin-bottom: 0.5em;
-			}
-
-			.cat-card h3 {
-				font-size: 1em;
-				margin: 0 0 0.3em;
-			}
-
-			.cat-card p {
-				font-size: 0.85em;
-				color: rgb(var(--gray));
-				margin: 0;
-			}
-
-			@media (max-width: 720px) {
-				.hero h1 { font-size: 2em; }
-				.cat-grid { grid-template-columns: repeat(2, 1fr); }
-			}
-
-			@media (max-width: 480px) {
-				.cat-grid { grid-template-columns: 1fr; }
-			}
-		</style>
+		<!-- Footer -->
+		<footer class="bg-gray-900 text-gray-400">
+			<div class="max-w-6xl mx-auto px-6 py-12 text-center">
+				<p class="text-white font-bold text-lg mb-1">Smart<span class="text-blue-400">Home</span>Made</p>
+				<p class="text-sm">Honest smart home reviews and guides.</p>
+				<p class="text-xs mt-4 text-gray-600">&copy; 2026 SmartHomeMade. All rights reserved.</p>
+			</div>
+		</footer>
 	</body>
 </html>
