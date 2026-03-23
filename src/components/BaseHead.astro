@@ -56,3 +56,28 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+
+<!-- Umami Analytics -->
+<script defer src="https://umami-seven-tau.vercel.app/script.js" data-website-id="212f3532-6a4f-43a7-83b4-69fd461f24c2"></script>
+
+<!-- GDPR Cookie Consent Banner -->
+<script type="module">
+document.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("cookie-consent")) return;
+  const b = document.createElement("div");
+  b.id = "cookie-consent-banner";
+  b.setAttribute("role", "dialog");
+  b.setAttribute("aria-label", "Cookie consent");
+  b.innerHTML = `
+    <div style="position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-top:1px solid #e5e7eb;padding:16px 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;font-family:system-ui,sans-serif;font-size:14px;color:#6b7280;">
+      <p style="margin:0;flex:1;min-width:200px;">We use cookies for analytics and to improve your experience. <a href="/privacy" style="color:#2563eb;text-decoration:underline;">Learn more</a></p>
+      <div style="display:flex;gap:8px;">
+        <button id="cc-reject" style="background:transparent;color:#9ca3af;border:1px solid #e5e7eb;padding:8px 16px;border-radius:9999px;cursor:pointer;font-size:13px;font-weight:500;">Reject</button>
+        <button id="cc-accept" style="background:#2563eb;color:#fff;border:none;padding:8px 20px;border-radius:9999px;cursor:pointer;font-size:13px;font-weight:600;">Accept</button>
+      </div>
+    </div>`;
+  document.body.appendChild(b);
+  document.getElementById("cc-accept")?.addEventListener("click", () => { localStorage.setItem("cookie-consent", "accepted"); b.remove(); });
+  document.getElementById("cc-reject")?.addEventListener("click", () => { localStorage.setItem("cookie-consent", "rejected"); b.remove(); });
+});
+</script>

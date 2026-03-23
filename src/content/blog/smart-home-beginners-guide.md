@@ -1,10 +1,12 @@
 ---
 title: 'Smart Home Beginners Guide: How to Start in 2026 (Without Wasting Money)'
-description: 'New to smart homes? This step-by-step guide shows you exactly what to buy first, how to set it up, and how to avoid the most common beginner mistakes.'
+description: 'Smart home beginners guide for 2026 — what to buy first, which ecosystem to pick, and how to avoid costly mistakes. Start for under $100.'
 pubDate: 'Mar 16 2026'
 heroImage: ''
 tags: ['smart home', 'beginners guide', 'getting started']
 ---
+
+*This post contains affiliate links. We may earn a commission at no extra cost to you.*
 
 You've decided you want a smart home. Great. But where do you actually start?
 
@@ -44,9 +46,9 @@ Your three options:
 
 Your smart speaker is the brain of your smart home. Start with one of these:
 
-- **Amazon Echo Dot** (~$50, often $25 on sale) — Best for Alexa
-- **Google Nest Mini** (~$30) — Best for Google Home
-- **Apple HomePod Mini** (~$99) — Best for HomeKit
+- [**Amazon Echo Dot**](https://www.amazon.com/dp/B09B8V1LZ3?tag=smarthomemade-20) (~$50, often $25 on sale) — Best for Alexa
+- [**Google Nest Mini**](https://www.amazon.com/dp/B07W8GKSTQ?tag=smarthomemade-20) (~$30) — Best for Google Home
+- [**Apple HomePod Mini**](https://www.amazon.com/dp/B09HLDMXY8?tag=smarthomemade-20) (~$99) — Best for HomeKit
 
 Put it somewhere central — kitchen or living room works best. This is your voice control hub.
 
@@ -62,7 +64,7 @@ Smart plugs are the fastest win. They make any "dumb" device voice-controlled in
 - A fan or space heater
 - Holiday/string lights
 
-Buy 2-3 smart plugs to start. Check out our full guide on the best smart plugs to find the right ones for your ecosystem.
+Buy 2-3 smart plugs to start. Check out our full guide on the [best smart plugs for 2026](/blog/best-smart-plugs-2026) to find the right ones for your ecosystem.
 
 **Estimated cost:** $15-30 for a multi-pack
 
@@ -146,20 +148,19 @@ A smart home without automations is just a home where you yell at your lights in
 
 Here's a realistic starter budget:
 
-| Item | Cost |
-|---|---|
-| Smart speaker (Echo Dot or Nest Mini) | $25-50 |
-| Smart plugs (3-pack) | $15-25 |
-| Smart bulbs (3) | $20-40 |
-| **Total** | **$60-115** |
+- **Smart speaker** ([Echo Dot](https://www.amazon.com/dp/B09B8V1LZ3?tag=smarthomemade-20) or [Nest Mini](https://www.amazon.com/dp/B07W8GKSTQ?tag=smarthomemade-20)) — $25-50
+- **Smart plugs** (3-pack, like the [Meross 4-pack](https://www.amazon.com/dp/B084JHJBQT?tag=smarthomemade-20)) — $15-25
+- **Smart bulbs** (3) — $20-40
+- **Total: $60-115**
 
 That's it. Under $100 gets you a functional smart home with voice control, automated lighting, and scheduled devices. Everything else is optional expansion.
 
 ## What's Next?
 
 Once you've got the basics running, check out our other guides:
-- Best smart plugs for every ecosystem
-- Alexa vs Google Home — which is better in 2026?
-- How to set up the perfect smart home automation routines
+- [Best Smart Plugs in 2026](/blog/best-smart-plugs-2026) — our top picks for every ecosystem
+- [Alexa vs Google Home](/blog/alexa-vs-google-home-2026) — which assistant is better in 2026?
+- [Do Smart Thermostats Actually Save Money?](/blog/smart-thermostats-dont-save-money) — our honest 12-month test
+- [Local Security Cameras That Don't Charge Subscriptions](/blog/stop-paying-ring-protect-local-cameras) — ditch Ring Protect forever
 
 The best smart home is one that makes your daily life a little easier without you thinking about it. Start small, build gradually, and enjoy the process.

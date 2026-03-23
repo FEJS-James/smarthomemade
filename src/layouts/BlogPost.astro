@@ -55,6 +55,16 @@ const jsonLd = JSON.stringify({
 	</head>
 	<body class="bg-white text-gray-900 antialiased">
 
+		<!-- Reading Progress Bar -->
+		<div id="reading-progress" style="position:fixed;top:0;left:0;height:3px;background:linear-gradient(to right,#2563eb,#8b5cf6,#06b6d4);z-index:9999;width:0;transition:width 0.15s ease-out;"></div>
+		<script>
+		window.addEventListener("scroll", () => {
+			const h = document.documentElement;
+			const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+			document.getElementById("reading-progress").style.width = Math.min(pct, 100) + "%";
+		});
+		</script>
+
 		<!-- Top accent -->
 		<div class="h-1 bg-gradient-to-r from-blue-600 via-violet-500 to-cyan-500"></div>
 
